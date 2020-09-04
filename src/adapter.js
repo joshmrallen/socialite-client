@@ -5,13 +5,14 @@ class Adapter {
         this.user_id = user_id;
     }
 
-    get getFollowers() {
-        return fetch(`${this.baseUrl}/${this.user_id}/followers`) //endpoint to followers
+    getFollowers() {
+        return fetch(`${this.baseUrl}/users/${this.user_id}/followers`) //endpoint to followers
         .then(resp => resp.json())
+        debugger
     }
 
-    get getFollowees(){
-        return fetch(`${this.baseUrl}/${this.user_id}/followees`) //endpoint to followees
+    getFollowees(){
+        return fetch(`${this.baseUrl}/users/${this.user_id}/followees`) //endpoint to followees
             .then(resp => resp.json())
     }
     // in index.js
