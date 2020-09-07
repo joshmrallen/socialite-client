@@ -1,0 +1,15 @@
+h3 { 
+    color: #009dfa
+}
+
+body {
+    font-family: "Trebuchet MS", Helvetica, sans-serif	
+}
+
+#followees {
+    visibility: hidden;
+}
+
+#followers {
+    visibility: hidden;
+}
