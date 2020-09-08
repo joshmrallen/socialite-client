@@ -1,16 +1,20 @@
 document.addEventListener("DOMContentLoaded", ()=>{
 
-    renderFollowers()
-    renderFollowees()
+    renderInfo()
     clickHandler()
 
 })
 
 const ian_social = new Adapter("http://localhost:3000", 9)
 
-const renderFollowers = () => {
-    ian_social.getFollowers()
-        .then(followers => renderFollower(followers))
+const renderInfo = () => {
+    ian_social.getInfo()
+    .then(info => {
+        renderFollower(info.followers)
+        renderFollowee(info.followees)
+        renderMessage(info.messages)
+        }
+    )
 }
 
 const renderFollower = (followers) => {
@@ -18,6 +22,30 @@ const renderFollower = (followers) => {
         createFollower(follower)
     });
 }
+
+const renderMessage = (messages) => {
+    messages.received.forEach(message => {
+        createReceived(message)
+    })
+    messages.sent.forEach(message => {
+        createSent(message)
+    })
+}
+
+const createReceived = (message) => {
+    const receivedDiv = document.getElementById('received')
+    const userH4 = document.createElement('h4')
+
+    userH4.innerText = message.sender.first_name + message.sender.last_name
+
+}
+
+
+const createSent = (message) => {
+    const sentDiv = document.querySelector()
+}
+
+
 
 const createFollower = (follower) => {
     const ul = document.getElementById('followers')
@@ -34,10 +62,6 @@ const createFollower = (follower) => {
     ul.append(li)
 }
 
-const renderFollowees = () => {
-    ian_social.getFollowees()
-    .then(followees => renderFollowee(followees))
-}
 
 const renderFollowee = (followees) => {
     followees.forEach(followee => {
