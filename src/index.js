@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 })
 
-const ian_social = new Adapter("http://localhost:3000", 1)
+const ian_social = new Adapter("http://localhost:3000", 9)
 
 const renderFollowers = () => {
     ian_social.getFollowers()
@@ -87,23 +87,12 @@ const clickHandler = () => {
                     followees.dataset.toggle = 'off'
                 } 
             }
-        } 
-
+        }  
         
+    
     })
 }
 
 
 
 
-
-
-
-
-
-
-//make renderFollowers function
-//make renderFollower
-//make createFollower
-//make renderFollowees function
-//make renderFollowee

@@ -5,6 +5,12 @@ class Adapter {
         this.user_id = user_id;
     }
 
+   // RETURNS ONE USER'S JSON SHOW PAGE
+    // getInfo() {
+    //     return fetch(`${this.baseUrl}/users/${this.user_id}`) //endpoint to user data
+    //     .then(resp => resp.json())    
+    // }
+
     getFollowers() {
         return fetch(`${this.baseUrl}/users/${this.user_id}/followers`) //endpoint to followers
         .then(resp => resp.json())
