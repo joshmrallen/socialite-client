@@ -117,5 +117,12 @@ input[type=submit] {
     margin-bottom:30px;
 }
 
+#received {
+    visibility: hidden;
+}
+
+#sent {
+    visibility: hidden;
+}
 
   

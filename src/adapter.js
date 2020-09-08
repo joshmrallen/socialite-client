@@ -11,6 +11,33 @@ class Adapter {
         .then(resp => resp.json())    
     }
 
+    getUserList(){
+        return fetch(`${this.baseUrl}/users`) //endpoint for comprehensive list of users on platform
+            .then(resp => resp.json())
+    }
+
+    addFollow(followerId, followeeId){
+        const follow = {
+            follower_id: followerId,
+            followee_id: followeeId
+        }
+
+        const configObj = {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                "accept": "application/json"
+            },
+            body: JSON.stringify(follow)
+        }
+        return fetch(`${this.baseUrl}/follows`, configObj)
+            .then(resp => resp.json())
+    }
+
+    deleteFollow(){
+        
+    }
+
 
 
 
