@@ -31,6 +31,18 @@
             <h3 class="mailbox">Outbox</h3>
             <div id="sent" data-toggle="off"></div>
         </div>
+        <button type="button" id="send-message" onclick="divShow()">Send a Message</button>
+        <div id='popup'>
+            <div id='popup-message'>
+                <form id='message-form'>
+                    <img id="close" src="https://www.pngfind.com/pngs/m/90-905672_x-cross-close-symbol-icon-button-gui-close.png" onclick ="divHide()">
+                    <label>Send a message ✉️ </label>
+                    <input type="search" id="user" name="user" placeholder="Search people">
+                    <textarea name="message" placeholder="Start your message"></textarea>
+                    <input type="submit" value="Send">
+                </form>
+            </div>
+        </div>
     </div>
     
 </body>

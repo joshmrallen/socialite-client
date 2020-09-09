@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 })
 
-const ian_social = new Adapter("http://localhost:3000", 6)
+const ian_social = new Adapter("http://localhost:3000", 9)
 
 const renderInfo = () => {
     const div = document.getElementById('follow-container')
@@ -25,7 +25,7 @@ const renderInfo = () => {
 
 const renderFollower = (followers) => {
     followers.forEach(follower => {
-        createFollower(follower)
+        createFollower(follower.user)
     });
 }
 
@@ -38,6 +38,7 @@ const renderMessage = (messages) => {
     })
 }
 
+// Added reply button for the current user to reply to received messages
 const createReceived = (message) => {
     const receivedDiv = document.getElementById('received')
     const messageDiv = document.createElement('div')
@@ -51,6 +52,7 @@ const createReceived = (message) => {
     messageDiv.innerHTML = `
         <h4>From: ${message.sender.first_name} ${message.sender.last_name} at: ${messageDiv.dataset.date}</h4>
         <p><strong>Message:</strong> ${message.content}</p>
+        <button type="button" data-sender-username="${message.sender.username}" data-sender-id="${message.sender.id}" id="reply-btn" onclick="divShow()">Reply</button>
     `
     receivedDiv.append(messageDiv)
 }
@@ -96,7 +98,7 @@ const createFollower = (follower) => {
 
 const renderFollowee = (followees) => {
     followees.forEach(followee => {
-        createFollowee(followee)
+        createFollowee(followee.user)
     })
 }
 
@@ -206,11 +208,39 @@ const clickHandler = () => {
             } else if (click.dataset.followee === 'true'){
                 
             }
+        } 
+        
+
+        /* 
+        
+        // click listener for reply button in Inbox
+            -- not sure if click listener or submit listener for sending/replying messages
+ 
+        else if (click.matches('#reply-btn')) {
+            const form = document.getElementById('message-form')
+            form.user.value = click.dataset.senderUsername  // pop up form automatically populates with sender's username
+            const messageInput = form.message.value // getting the value of message from form 
         }
+        */ 
         
     
     })
 }
+
+
+// Functions to hide/show pop up message form
+
+
+// function divShow() {
+//     const popNewMessage = document.querySelector('#popup')
+//     popNewMessage.style.display = 'block'
+// }
+
+// function divHide() {
+//     const popNewMessage = document.querySelector('#popup')
+//     popNewMessage.style.display = 'none'
+// }
+
 
 
 
