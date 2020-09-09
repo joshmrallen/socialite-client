@@ -34,14 +34,18 @@ class Adapter {
             .then(resp => resp.json())
     }
 
-    deleteFollow(){
-        
+    deleteFollow(followId){
+        const configObj = {
+            method: "DELETE",
+        }
+        return fetch(`${this.baseUrl}/follows/${followId}`, configObj)
+            .then(resp => resp.json())
     }
 
 
 
 
-    
+
     // getFollowers() {
     //     return fetch(`${this.baseUrl}/users/${this.user_id}/followers`) //endpoint to followers
     //     .then(resp => resp.json())
