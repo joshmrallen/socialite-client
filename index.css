@@ -1,13 +1,22 @@
 h3 { 
     color: #009dfa;
+    background-color: white;
+    border-radius: 8px;
+    border:1px solid #009dfa;
+    padding: 5px 5px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 75%;
 }
 
 body {
     font: 400 13.3333px Arial;
     font-size: 14px;
-    background-image: url(images/clickbait.gif);
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-image: url(images/clickbait.gif), url(images/cliffhanger_loopdribbb8x6.gif);
+    background-position: top, bottom;
+    background-repeat: no-repeat, repeat;
+    background-size: cover, cover;
     background-color: rgb(247, 163, 219);
 }
 
@@ -45,6 +54,13 @@ button:hover {
     cursor:pointer;
 }
 
+#send-message {
+    margin: auto;
+    width: 75%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
 input[type=submit]:hover {
     background-color: white;
     color: #009dfa;
@@ -63,10 +79,24 @@ input[type=submit]:hover {
     overflow:auto
 }
 
+
+#popup-sign {
+    width:100%;
+    height:100%;
+    opacity:.95;
+    z-index: 4;
+    top:0;
+    left:0;
+    position:fixed;
+    display: block;
+    background-color:#313131;
+    overflow:auto
+}
+
 img#close {
     position:absolute;
-    right: -7px;
-    top: -8px;
+    right: -2px;
+    top: 0px;
     cursor: pointer;
     width: 7%;
     height: auto;
@@ -88,14 +118,15 @@ form {
     max-width:300px;
     min-width:250px;
     padding:50px 70px;
-    border: .5px solid #b1b1b1;
-    border-radius:5px;
-    background-color:#fff;
+    border: 2px solid #009dfa;
+    border-radius: 10px;
+    background-color: rgba(255, 229, 229);
 }
 
 input[type=search] {
     width:100%;
     padding:10px;
+    border-radius: 8px;
     margin-top:30px;
     margin-left:0px;
     border:1px solid #b1b1b1;
@@ -109,6 +140,7 @@ textarea {
     width:100%;
     height:70px;
     padding:10px;
+    border-radius: 8px;
     resize:none;
     margin-top:30px;
     margin-left:0px;
@@ -126,7 +158,7 @@ input[type=submit] {
     display:block;
     background-color:#009dfa;
     color:#fff;
-    border-radius: 8px;
+    border-radius: 10px;
     border:1px solid #009dfa;
     padding:10px 0px;
     font-size:16px;
@@ -151,6 +183,7 @@ input[type=submit] {
 } */
 
 #follow-container {
+    text-align: center;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-around;
@@ -169,15 +202,18 @@ input[type=submit] {
     border: 2px solid #009dfa;
     border-radius: 10px;
     width: 70%;
-    margin: 10px;
+    margin-right: 15px;
+    margin-bottom: 5px;
     background-color: rgb(194, 220, 221);
 }
 
 .follow-li > h4 {
-    margin-bottom: -5;
+    margin-bottom: -5px;
+    margin-top: 5px;
 }
 
 #message-container {
+    text-align: center;
     display: flex;
     flex-flow: column nowrap;
     justify-content: right;
@@ -200,10 +236,20 @@ input[type=submit] {
     border: 2px solid #009dfa;
     border-radius: 10px;
     width: 70%;
-    margin: 10px;
+    margin: auto;
+    margin-bottom: 5px;
+    text-align: left;
     background-color: rgb(194, 220, 221);
 }
 
+.message-tile > h4 {
+    margin-bottom: -5px;
+    margin-top: 5px;
+}
 
+
+.message-info {
+    text-align: center;
+}
 
   

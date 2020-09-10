@@ -1,16 +1,35 @@
 document.addEventListener("DOMContentLoaded", ()=>{
-
+    
+    submitHandler()
+    const currentId = document.getElementById('bar')
+    CURRENT_USER = new Adapter('http://localhost:3000/', currentId.dataset.currentId)
     renderInfo()
     clickHandler()
-    submitHandler()
 })
 
-const ian_social = new Adapter("http://localhost:3000", 22)
-const user_list = new Adapter("http://localhost:3000")
+const findUserIdSignIn = () => {
+    const signInForm = document.getElementById('sign-in-form')
+
+    Adapter.getUserList()
+    .then(users => {
+        for (user of users) {
+            if (user.username === username) {
+                const userId = document.getElementById('bar')
+                userId.dataset.currentId = user.id
+                debugger
+
+            } else {
+                console.log("Wrong username")
+            }
+        }
+    })
+
+
+}
 
 const renderInfo = () => {
     const div = document.getElementById('follow-container')
-    ian_social.getInfo()
+    CURRENT_USER.getInfo()
         .then(info => {
             div.dataset.currentId = info.id
             div.dataset.currentFirst = info.first_name
@@ -70,16 +89,14 @@ const createSent = (message) => {
     messageDiv.dataset.receiver = message.receiver_id
     messageDiv.dataset.content = message.content
     messageDiv.dataset.username = message.receiver.username
-
-    const dateVar = new Date(message.created_at).toISOString().split('T')[0]
-    messageDiv.dataset.date = dateVar
+    messageDiv.dataset.date = new Date(Date.parse(message.created_at))
 
     //new Date(Date.parse(message.receiver.created_at))
     //new Date(message.receiver.created_at).toISOString().split('T')[0]
 
 
     messageDiv.innerHTML = `
-        <h4>To: ${message.receiver.first_name} ${message.receiver.last_name} at: ${dateVar}</h4>
+        <h4>To: ${message.receiver.first_name} ${message.receiver.last_name} at: ${messageDiv.dataset.date}</h4>
         <p><strong>Message:</strong> ${message.content}</p>
     `
 
@@ -260,7 +277,7 @@ const clickHandler = () => {
 
 // button to add a user to follow list (followee)
             if(click.dataset.followee === 'false'){
-                ian_social.addFollow(currentId, personId)
+                CURRENT_USER.addFollow(currentId, personId)
                     .then(followee => {
                         console.log(followee)
                         click.innerText = 'Unfollow'
@@ -280,7 +297,7 @@ const clickHandler = () => {
 
 // button to unfollow an user that follows you
             } else if (click.dataset.followee === 'true'){
-                ian_social.deleteFollow(followId)
+                CURRENT_USER.deleteFollow(followId)
                     .then(resp => console.log(resp))
 
 
@@ -316,7 +333,7 @@ const clickHandler = () => {
 // Add error message when username is not found
 const findUserIdAndSubmitMessage = (input, currentId, messageInput) => {
     let receiverId = null
-    user_list.getUserList()
+    Adapter.getUserList()
         .then(users => {
             for (let i = 0; i < users.length; i++) {
                 if (users[i].username === input) {
@@ -331,7 +348,7 @@ const findUserIdAndSubmitMessage = (input, currentId, messageInput) => {
                 console.log('No user found. Check spelling and try again.')
             }
 
-            ian_social.submitMessage(currentId, receiverId, messageInput)
+            CURRENT_USER.submitMessage(currentId, receiverId, messageInput)
                 .then(message => {
                     console.log(message)
                     createSent(message)
@@ -341,16 +358,14 @@ const findUserIdAndSubmitMessage = (input, currentId, messageInput) => {
         })
         .catch(console.log)
 }
-// check if username is valid upon submission
-// render message on DOM
+
 const submitHandler = () => {
-    document.addEventListener("submit", (e) => {
-        e.preventDefault()
-        
+    const messageForm = document.getElementById('message-form')
+
+    messageForm.addEventListener("submit", (e) => {
         let click = e.target
+        e.preventDefault()
         console.log(click)
-        
-        const form = document.getElementById('message-form')
         const userInput = form.user.value
         const messageInput = form.message.value // getting the value of message from form 
         const div = document.getElementById('follow-container')
@@ -358,11 +373,17 @@ const submitHandler = () => {
 
         findUserIdAndSubmitMessage(userInput, currentId, messageInput)
         form.reset()
-        // debugger
-        
-        
+    })   
+
+    const signInForm = document.getElementById('sign-in-form')
+
+    signInForm.addEventListener("submit", (e) => {
+        let click = e.target
+        const username = signInForm.username.value
+        findUserIdSignIn(username)
     })
 }
+
 
 
 
@@ -376,7 +397,15 @@ function divHide() {
     popNewMessage.style.display = 'none'
 }
 
+function signInHide() {
+    const signIn = document.querySelector('#popup-sign')
+    signIn.style.display = 'none'
+}
 
+function signInShow() {
+    const signIn = document.querySelector('#popup-sign')
+    signIn.style.display = 'block'
+}
 
 
 

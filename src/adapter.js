@@ -11,7 +11,7 @@ class Adapter {
         .then(resp => resp.json())    
     }
 
-    getUserList(){
+    static getUserList(){
         return fetch(`${this.baseUrl}/users`) //endpoint for comprehensive list of users on platform
             .then(resp => resp.json())
     }

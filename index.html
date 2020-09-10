@@ -12,6 +12,16 @@
 </head>
 <body>
     <div id="bar">
+        <div id='popup-sign'>
+            <div id='popup-message'>
+                <form id='sign-in-form'>
+                    <img id="close" src="images/baseline_close_black_18dp.png" onclick ="signInHide()">
+                    <label>Welcome to Socialite!</label>
+                    <input type="text" id="user" name="username" placeholder="Enter your username">
+                    <input type="submit" id="sign-in" value="Sign In">
+                </form>
+            </div>
+        </div>
         <div id="follow-container">
             <div class="follow-info">
                 <h3 class="follow-header">Who Follows You</h3>
@@ -36,7 +46,7 @@
             <div id='popup'>
                 <div id='popup-message'>
                     <form id='message-form'>
-                        <img id="close" src="https://www.pngfind.com/pngs/m/90-905672_x-cross-close-symbol-icon-button-gui-close.png" onclick ="divHide()">
+                        <img id="close" src="images/baseline_close_black_18dp.png" onclick ="divHide()">
                         <label>Send a message ✉️ </label>
                         <input type="search" id="user" name="user" placeholder="Search people">
                         <textarea name="message" placeholder="Start your message"></textarea>
