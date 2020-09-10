@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     submitHandler()
 })
 
-const ian_social = new Adapter("http://localhost:3000", 11)
+const ian_social = new Adapter("http://localhost:3000", 22)
 const user_list = new Adapter("http://localhost:3000")
 
 const renderInfo = () => {
@@ -196,6 +196,7 @@ const createUnfollowButton = (followees) => {
     }
 }
 
+
 const clickHandler = () => {
     const followers = document.querySelector('#followers')
     const followees = document.querySelector('#followees')
@@ -311,6 +312,35 @@ const clickHandler = () => {
     })
 }
 
+
+// Add error message when username is not found
+const findUserIdAndSubmitMessage = (input, currentId, messageInput) => {
+    let receiverId = null
+    user_list.getUserList()
+        .then(users => {
+            for (let i = 0; i < users.length; i++) {
+                if (users[i].username === input) {
+                    console.log(users)
+                    receiverId = users[i].id
+                    // debugger
+                }
+            }
+            if (receiverId){
+                console.log(receiverId)
+            } else {
+                console.log('No user found. Check spelling and try again.')
+            }
+
+            ian_social.submitMessage(currentId, receiverId, messageInput)
+                .then(message => {
+                    console.log(message)
+                    createSent(message)
+                    divHide()
+                })
+                .catch(console.log)
+        })
+        .catch(console.log)
+}
 // check if username is valid upon submission
 // render message on DOM
 const submitHandler = () => {
@@ -318,51 +348,23 @@ const submitHandler = () => {
         e.preventDefault()
         
         let click = e.target
-console.log(click)
+        console.log(click)
         
-            const form = document.getElementById('message-form')
-            const userInput = form.user.value
-            const messageInput = form.message.value // getting the value of message from form 
-            const receiverId = parseInt(findUserId(userInput))
-            
-            if (receiverId) {
-                const div = document.getElementById('follow-container')
-                const currentId = parseInt(div.dataset.currentId)
-                submitMessage(currentId, receiverId, messageInput)
-            } else {
-                console.log("Message did not send. Try again")
-            }
+        const form = document.getElementById('message-form')
+        const userInput = form.user.value
+        const messageInput = form.message.value // getting the value of message from form 
+        const div = document.getElementById('follow-container')
+        const currentId = parseInt(div.dataset.currentId, 10)
+
+        findUserIdAndSubmitMessage(userInput, currentId, messageInput)
+        form.reset()
+        // debugger
         
         
     })
 }
 
-// Add error message when username is not found
-const findUserId = (input) => {
-    user_list.getUserList()
-    .then(users => {
-        for (let i = 0; i < users.length; i++) {
-            if (users[i].username === input) {
-                console.log(users)
-                return users[i].id
-            } else {
-                console.log("No user found")
-                return null
-            }
-        }
 
-
-        // for (user of users) {
-        //     if (user.username === input) {
-        //         return user.id
-        //     } else {
-        //         debugger
-        //         console.log("No user found")
-        //         return null
-        //     }
-        // }
-    })
-}
 
 function divShow() {
     const popNewMessage = document.querySelector('#popup')
