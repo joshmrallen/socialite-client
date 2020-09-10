@@ -236,6 +236,7 @@ const clickHandler = () => {
                     followees.dataset.toggle = 'on'
                     console.log(followees.dataset.toggle)
                 } else if (followees.dataset.toggle === 'on') {
+                    console.log(followees.dataset.toggle)
                     followees.style.visibility = 'hidden'
                     followees.dataset.toggle = 'off'
                 } 
@@ -279,7 +280,7 @@ const clickHandler = () => {
                         click.innerText = 'Unfollow'
                         click.dataset.followee = "true"
                         click.dataset.followId = followee.id
-
+                        ulFollowees.dataset.toggle = "off"
                         const newLi = document.createElement('li')
                         newLi.className = "follow-li"
                         newLi.dataset.followId = click.dataset.followId
