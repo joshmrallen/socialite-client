@@ -42,25 +42,20 @@ class Adapter {
             .then(resp => resp.json())
     }
 
-
-
-
-
-    // getFollowers() {
-    //     return fetch(`${this.baseUrl}/users/${this.user_id}/followers`) //endpoint to followers
-    //     .then(resp => resp.json())
-    //     debugger
-    // }
-
-    // getFollowees(){
-    //     return fetch(`${this.baseUrl}/users/${this.user_id}/followees`) //endpoint to followees
-    //         .then(resp => resp.json())
-    // }
-
-    // in index.js
-    // user instance calls new Adapter:
-    // jenn = new Adapter("localhost::3000")
-    // jenn.getFollowers.then(followers => renderFollowers(followers))
-    // jenn.getFollowees.then(followees => renderFollowees(followees))
-    
+    submitMessage(senderId, receiverId, messageContent){
+        const configObj = {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                "accept": "application/json"
+            },
+            body: JSON.stringify({
+                sender_id: senderId,
+                receiver_id: receiverId,
+                content: messageContent
+            })
+        }
+        return fetch(`${this.baseUrl}/messages`, configObj)
+            .then(resp => resp.json())
+    }
 }

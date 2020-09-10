@@ -2,10 +2,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     renderInfo()
     clickHandler()
-
+    submitHandler()
 })
 
 const ian_social = new Adapter("http://localhost:3000", 11)
+const user_list = new Adapter("http://localhost:3000")
 
 const renderInfo = () => {
     const div = document.getElementById('follow-container')
@@ -302,24 +303,66 @@ const clickHandler = () => {
                 }
             }
         } 
-        else if (click.matches('#reply-btn')) {
-            const form = document.getElementById('message-form')
-            form.user.value = click.dataset.senderUsername  // pop up form automatically populates with sender's username
-            const messageInput = form.message.value // getting the value of message from form 
-        }
-
-
-        /* 
-        click listener for reply button in Inbox
-            -- not sure if click listener or submit listener for sending/replying messages
-        */ 
-        
-    
+        // else if (click.matches('#reply-btn')) {
+        //     const form = document.getElementById('message-form')
+        //     form.user.value = click.dataset.senderUsername  // pop up form automatically populates with sender's username
+        //     const messageInput = form.message.value // getting the value of message from form 
+        // }
     })
 }
 
+// check if username is valid upon submission
+// render message on DOM
+const submitHandler = () => {
+    document.addEventListener("submit", (e) => {
+        e.preventDefault()
+        
+        let click = e.target
+console.log(click)
+        
+            const form = document.getElementById('message-form')
+            const userInput = form.user.value
+            const messageInput = form.message.value // getting the value of message from form 
+            const receiverId = parseInt(findUserId(userInput))
+            
+            if (receiverId) {
+                const div = document.getElementById('follow-container')
+                const currentId = parseInt(div.dataset.currentId)
+                submitMessage(currentId, receiverId, messageInput)
+            } else {
+                console.log("Message did not send. Try again")
+            }
+        
+        
+    })
+}
 
-// Functions to hide/show pop up message form
+// Add error message when username is not found
+const findUserId = (input) => {
+    user_list.getUserList()
+    .then(users => {
+        for (let i = 0; i < users.length; i++) {
+            if (users[i].username === input) {
+                console.log(users)
+                return users[i].id
+            } else {
+                console.log("No user found")
+                return null
+            }
+        }
+
+
+        // for (user of users) {
+        //     if (user.username === input) {
+        //         return user.id
+        //     } else {
+        //         debugger
+        //         console.log("No user found")
+        //         return null
+        //     }
+        // }
+    })
+}
 
 function divShow() {
     const popNewMessage = document.querySelector('#popup')
