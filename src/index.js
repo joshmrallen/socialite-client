@@ -157,17 +157,43 @@ const createFollowee = (followee) => {
 
 const createFollowButton = (followers) => {
     const followerList = document.getElementById('followers')
+    const followeeList = document.getElementById('followees')  
 
     for (follower of followerList.children) {
-        const button = document.createElement('button')
-        button.className = 'follow-btn'
-        button.innerText = 'Follow'
-        button.dataset.followId = null
-        button.dataset.personId = follower.dataset.personId
-        button.dataset.username = follower.dataset.username
-        button.dataset.followee = false
-        follower.append(button)
+        if (followeeList.children.length === 0) {
+            const button = document.createElement('button')
+            button.className = 'follow-btn'
+            button.innerText = 'Follow'
+            button.dataset.followId = null
+            button.dataset.personId = follower.dataset.personId
+            button.dataset.username = follower.dataset.username
+            button.dataset.followee = false
+            follower.append(button)
+        } else {
+            for (followee of followeeList.children) {
+                if (follower.dataset.personId === followee.dataset.personId) {
+                    const button = document.createElement('button')
+                    button.className = 'follow-btn'
+                    button.innerText = 'Unfollow'
+                    button.dataset.followId = followee.dataset.followId
+                    button.dataset.personId = follower.dataset.personId
+                    button.dataset.username = follower.dataset.username
+                    button.dataset.followee = true
+                    follower.append(button)
+                } else {
+                    const button = document.createElement('button')
+                    button.className = 'follow-btn'
+                    button.innerText = 'Follow'
+                    button.dataset.followId = null
+                    button.dataset.personId = follower.dataset.personId
+                    button.dataset.username = follower.dataset.username
+                    button.dataset.followee = false
+                    follower.append(button)
+                }
+            }
+        }
     }
+
 }
 
 const createUnfollowButton = (followees) => {
@@ -262,21 +288,7 @@ const clickHandler = () => {
                         newLi.dataset.first = click.dataset.first
                         newLi.dataset.last = click.dataset.last
                         newLi.innerHTML = click.parentElement.innerHTML
-                        ulFollowees.appendChild(newLi)                        
-                        
-                        // for (li of click.parentElement.children) {
-                        //     if (li.dataset.followId === followId) {
-                        //         const newLi = document.createElement('li')
-                        //         newLi.className = "follow-li"
-                        //         newLi.dataset.followId = li.dataset.followId
-                        //         newLi.dataset.personId = li.dataset.personId
-                        //         newLi.dataset.username = li.dataset.username
-                        //         newLi.dataset.first = li.dataset.first
-                        //         newLi.dataset.last = li.dataset.last
-                        //         newLi.innerHTML = li.innerHTML
-                        //         ulFollowees.appendChild(newLi)
-                        //     }          
-                        // }
+                        ulFollowees.append(newLi)                        
                     })
 
 // button to unfollow an user that follows you
@@ -286,45 +298,35 @@ const clickHandler = () => {
 
 
                 if (click.parentElement.parentElement.id === "followees") {
-                    for (followers of ulFollowers.children) {
+                    for (follower of ulFollowers.children) {
                         if (follower.dataset.personId === click.dataset.personId) {
                             follower.lastElementChild.innerText = "Follow"
                             follower.lastElementChild.dataset.followee = false
                         }
                     }
-                    click.parentElement.parentElement.remove(click.parentElement)
+                    click.parentElement.remove()
+                    console.log(click, "look at me")
                 } else if (click.parentElement.parentElement.id === "followers") {
                     click.innerText = "Follow"
                     click.dataset.followee = "false"
-                    ulFollowees.remove(click.parentElement)
+                        for (followee of ulFollowees.children) {
+                            if (followee.dataset.personId === click.dataset.personId) {
+                                followee.remove()
+                            }
+                        }
                 }
-
-                // for (follower of ulFollowers.children) {
-                //     if (follower.dataset.followId === click.dataset.followId) {
-                //         follower.lastElementChild.innerText = "Follow"
-
-                //         for (li of ulFollowees.children) {
-                //             if (li.dataset.followId === click.dataset.followId) {
-                //                 ulFollowees.remove(li)
-                //             }
-                //     }  
-                //     } 
-                // }
-
-                
             }
         } 
-        // else if (click.matches('#reply-btn')) {
-        //     const form = document.getElementById('message-form')
-        //     form.user.value = click.dataset.senderUsername  // pop up form automatically populates with sender's username
-        //     const messageInput = form.message.value // getting the value of message from form 
-        // }
+        else if (click.matches('#reply-btn')) {
+            const form = document.getElementById('message-form')
+            form.user.value = click.dataset.senderUsername  // pop up form automatically populates with sender's username
+            const messageInput = form.message.value // getting the value of message from form 
+        }
+
+
         /* 
-        
-        // click listener for reply button in Inbox
+        click listener for reply button in Inbox
             -- not sure if click listener or submit listener for sending/replying messages
- 
-      
         */ 
         
     
