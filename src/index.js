@@ -155,41 +155,25 @@ const createFollowee = (followee) => {
 //     }
 // }
 
-const createFollowButton = (followers) => {
+const createFollowButton = () => {
     const followerList = document.getElementById('followers')
-    const followeeList = document.getElementById('followees')  
+    const followeeList = document.getElementById('followees') 
 
     for (follower of followerList.children) {
-        if (followeeList.children.length === 0) {
-            const button = document.createElement('button')
-            button.className = 'follow-btn'
-            button.innerText = 'Follow'
-            button.dataset.followId = null
-            button.dataset.personId = follower.dataset.personId
-            button.dataset.username = follower.dataset.username
-            button.dataset.followee = false
-            follower.append(button)
-        } else {
-            for (followee of followeeList.children) {
-                if (follower.dataset.personId === followee.dataset.personId) {
-                    const button = document.createElement('button')
-                    button.className = 'follow-btn'
-                    button.innerText = 'Unfollow'
-                    button.dataset.followId = followee.dataset.followId
-                    button.dataset.personId = follower.dataset.personId
-                    button.dataset.username = follower.dataset.username
-                    button.dataset.followee = true
-                    follower.append(button)
-                } else {
-                    const button = document.createElement('button')
-                    button.className = 'follow-btn'
-                    button.innerText = 'Follow'
-                    button.dataset.followId = null
-                    button.dataset.personId = follower.dataset.personId
-                    button.dataset.username = follower.dataset.username
-                    button.dataset.followee = false
-                    follower.append(button)
-                }
+        const button = document.createElement('button')
+        button.className = 'follow-btn'
+        button.innerText = 'Follow'
+        button.dataset.followId = null
+        button.dataset.personId = follower.dataset.personId
+        button.dataset.username = follower.dataset.username
+        button.dataset.followee = false
+        follower.append(button)
+
+        for (followee of followeeList.children) {
+            if (follower.dataset.personId === followee.dataset.personId) {
+                button.dataset.followId = followee.dataset.followId
+                button.innerText = "Unfollow"
+                button.dataset.followee = true
             }
         }
     }
