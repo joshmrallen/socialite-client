@@ -44,7 +44,7 @@ const renderMessage = (senderMessages, receiverMessages) => {
 const createReceived = (message) => {
     const receivedDiv = document.getElementById('received')
     const messageDiv = document.createElement('div')
-    messageDiv.className = "received-div"
+    messageDiv.className = "message-tile"
     messageDiv.dataset.messageId = message.id
     messageDiv.dataset.sender = message.sender_id
     messageDiv.dataset.receiver = message.receiver_id
@@ -64,7 +64,7 @@ const createReceived = (message) => {
 const createSent = (message) => {
     const sentDiv = document.getElementById('sent')
     const messageDiv = document.createElement('div')
-    messageDiv.className = "sent-div"
+    messageDiv.className = "message-tile"
     messageDiv.dataset.messageId = message.id
     messageDiv.dataset.sender = message.sender_id
     messageDiv.dataset.receiver = message.receiver_id
@@ -209,21 +209,21 @@ const clickHandler = () => {
         if (click.matches('.follow-header')) {
             if (click.nextElementSibling.id === 'followers') {
                 if (followers.dataset.toggle === 'off' ) {
-                    followers.style.visibility = 'visible'
+                    followers.style.display = 'block'
                     followers.dataset.toggle = 'on'
                     console.log(followers.dataset.toggle)
                 } else if (followers.dataset.toggle === 'on') {
-                    followers.style.visibility = 'hidden'
+                    followers.style.display = 'none'
                     followers.dataset.toggle = 'off'
                 } 
             } else if (click.nextElementSibling.id === 'followees') {
                 if (followees.dataset.toggle === 'off' ) {
-                    followees.style.visibility = 'visible'
+                    followees.style.display = 'block'
                     followees.dataset.toggle = 'on'
                     console.log(followees.dataset.toggle)
                 } else if (followees.dataset.toggle === 'on') {
                     console.log(followees.dataset.toggle)
-                    followees.style.visibility = 'hidden'
+                    followees.style.display = 'none'
                     followees.dataset.toggle = 'off'
                 } 
             }
@@ -231,20 +231,20 @@ const clickHandler = () => {
             console.log('mailbox clicked')
             if(click.nextElementSibling.id === 'received'){
                 if(inbox.dataset.toggle === 'off'){
-                    inbox.style.visibility = 'visible'
+                    inbox.style.display = 'block'
                     inbox.dataset.toggle = "on"
                     console.log(inbox.dataset.toggle)
                 } else if (inbox.dataset.toggle === 'on') {
-                    inbox.style.visibility = 'hidden'
+                    inbox.style.display = 'none'
                     inbox.dataset.toggle = 'off'
                 }
             } else if(click.nextElementSibling.id === 'sent'){
                 if(outbox.dataset.toggle === 'off'){
-                    outbox.style.visibility = 'visible'
+                    outbox.style.display = 'block'
                     outbox.dataset.toggle = "on"
                     console.log(outbox.dataset.toggle)
                 } else if(outbox.dataset.toggle === 'on'){
-                    outbox.style.visibility = 'hidden'
+                    outbox.style.display = 'none'
                     outbox.dataset.toggle = 'off'
                     console.log(outbox.dataset.toggle)
                 }

@@ -5,14 +5,18 @@ h3 {
 body {
     font: 400 13.3333px Arial;
     font-size: 14px;
+    background-image: url(images/clickbait.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgb(247, 163, 219);
 }
 
 #followees {
-    visibility: hidden;
+    display: none;
 }
 
 #followers {
-    visibility: hidden;
+    display: none;
 }
 
 .follow-header:hover {
@@ -132,11 +136,74 @@ input[type=submit] {
 }
 
 #received {
-    visibility: hidden;
+    display: none;
 }
 
 #sent {
-    visibility: hidden;
+    display: none;
 }
+
+/* #bar {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    padding: 10px;
+} */
+
+#follow-container {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    padding: 10px;
+    position: absolute;
+    left: 10px;
+    border: 2px solid #b1b1b1;
+    border-radius: 8px;
+    background-color: rgba(243, 44, 17, 0.10);
+}
+
+.follow-li {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 10px;
+    border: 2px solid #009dfa;
+    border-radius: 10px;
+    width: 70%;
+    margin: 10px;
+    background-color: rgb(194, 220, 221);
+}
+
+.follow-li > h4 {
+    margin-bottom: -5;
+}
+
+#message-container {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: right;
+    padding: 10px;
+    position: absolute;
+    right: 10px;
+    border: 2px solid #b1b1b1;
+    border-radius: 8px;
+    background-color: rgba(243, 44, 17, 0.10);
+    
+}
+
+.message-group {
+    display: flex;
+    justify-content: space-around;
+}
+
+.message-tile {
+    padding: 10px;
+    border: 2px solid #009dfa;
+    border-radius: 10px;
+    width: 70%;
+    margin: 10px;
+    background-color: rgb(194, 220, 221);
+}
+
+
 
   

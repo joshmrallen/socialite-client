@@ -11,38 +11,41 @@
 
 </head>
 <body>
-    <div id="follow-container">
-        <div class="follow-info">
-            <h3 class="follow-header">Who Follows You</h3>
-            <ul id="followers"></ul>
-        </div>
-        <div class="follow-info">
-            <h3 class="follow-header">People You Follow</h3>
-            <ul id="followees"></ul>
-        </div>
-    </div>
-    
-    <div id="message-container"> 
-        <div class="message-info">
-            <h3 class="mailbox">Inbox</h3>
-            <div id="received" data-toggle="off"></div>
-        </div>
-        <div class="message-info">
-            <h3 class="mailbox">Outbox</h3>
-            <div id="sent" data-toggle="off"></div>
-        </div>
-        <button type="button" id="send-message" onclick="divShow()">Send a Message</button>
-        <div id='popup'>
-            <div id='popup-message'>
-                <form id='message-form'>
-                    <img id="close" src="https://www.pngfind.com/pngs/m/90-905672_x-cross-close-symbol-icon-button-gui-close.png" onclick ="divHide()">
-                    <label>Send a message ✉️ </label>
-                    <input type="search" id="user" name="user" placeholder="Search people">
-                    <textarea name="message" placeholder="Start your message"></textarea>
-                    <input type="submit" id="submit-message" value="Send">
-                </form>
+    <div id="bar">
+        <div id="follow-container">
+            <div class="follow-info">
+                <h3 class="follow-header">Who Follows You</h3>
+                <ul id="followers"></ul>
+            </div>
+            <div class="follow-info">
+                <h3 class="follow-header">People You Follow</h3>
+                <ul id="followees"></ul>
             </div>
         </div>
+        
+        <div id="message-container"> 
+            <div class="message-info">
+                <h3 class="mailbox">Inbox</h3>
+                <div id="received" data-toggle="off" class="message-group"></div>
+            </div>
+            <div class="message-info">
+                <h3 class="mailbox">Outbox</h3>
+                <div id="sent" data-toggle="off" class="message-group"></div>
+            </div>
+            <button type="button" id="send-message" onclick="divShow()">Send a Message</button>
+            <div id='popup'>
+                <div id='popup-message'>
+                    <form id='message-form'>
+                        <img id="close" src="https://www.pngfind.com/pngs/m/90-905672_x-cross-close-symbol-icon-button-gui-close.png" onclick ="divHide()">
+                        <label>Send a message ✉️ </label>
+                        <input type="search" id="user" name="user" placeholder="Search people">
+                        <textarea name="message" placeholder="Start your message"></textarea>
+                        <input type="submit" id="submit-message" value="Send">
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </div>
     
 </body>
