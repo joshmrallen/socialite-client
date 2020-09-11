@@ -253,7 +253,11 @@ const clickHandler = () => {
                         newLi.dataset.first = click.dataset.first
                         newLi.dataset.last = click.dataset.last
                         newLi.innerHTML = click.parentElement.innerHTML
-                        ulFollowees.append(newLi)                        
+                        ulFollowees.append(newLi)  
+                        
+                        const suggestedUl = document.getElementById('suggested-container')
+                        const suggestedLi = suggestedUl.querySelector(`[data-person-id="${personId}"]`)
+                        suggestedLi.remove()
                     })
 // button to unfollow an user that follows you
             } else if (click.dataset.followee === 'true'){
@@ -285,11 +289,20 @@ const clickHandler = () => {
             const messageInput = form.message.value 
             reminderHide()
         }
+
         else if (click.matches('#suggested-follows')) {
-            // make a list of suggest users to show when button is clicked
-            // do style.display on those users UL
-            suggestedFriends()
-        }
+            if (click.dataset.toggle == 'off') {
+                click.dataset.toggle = 'on'
+                suggestedFriends()
+                debugger
+                console.log(click)          
+            } else if (click.dataset.toggle == 'on') {
+                const suggestedUl = document.getElementById('suggested-container')
+                suggestedUl.style.display = 'none' 
+                click.dataset.toggle = 'off'
+                console.log(click)          
+            }
+        } 
     })
 }
 
@@ -400,14 +413,14 @@ const suggestedFriends = () => {
         for (user of suggested) {
             const li = document.createElement('li')
             li.className = "suggested-li"
-            li.dataset.userId = user.id
+            li.dataset.personId = user.id
             li.dataset.username = user.username
             li.dataset.first = user.first_name
             li.dataset.last = user.last_name
             li.innerHTML = `
                 <h4>Username: @${user.username}</h4>
                 <p>Name: ${user.first_name} ${user.last_name}</p>
-                <button data-user-id=${user.id}>Follow</button>
+                <button class="follow-btn" data-follow-id="null" data-followee="false" data-username="${user.username}" data-person-id="${user.id}">Follow</button>
                 `
             suggestedUl.append(li) 
         }

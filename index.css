@@ -214,13 +214,26 @@ input[type=submit] {
 #reminder-container {
     text-align: center;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     flex-flow: column nowrap;
     padding: 10px;
     position: absolute;
     border: 2px solid #b1b1b1;
     border-radius: 8px;
-    background-color: rgba(243, 44, 17, 0.10); 
+    background-color: rgba(255, 253, 202, 0.55); 
+}
+
+#message-container {
+    text-align: center;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: right;
+    padding: 10px;
+    position: absolute;
+    right: 10px;
+    border: 2px solid #b1b1b1;
+    border-radius: 8px;
+    background-color: rgba(243, 44, 17, 0.10);   
 }
 
 .follow-li {
@@ -240,18 +253,16 @@ input[type=submit] {
     margin-top: 5px;
 }
 
-#message-container {
-    text-align: center;
+.suggested-li {
     display: flex;
     flex-flow: column nowrap;
-    justify-content: right;
     padding: 10px;
-    position: absolute;
-    right: 10px;
-    border: 2px solid #b1b1b1;
-    border-radius: 8px;
-    background-color: rgba(243, 44, 17, 0.10);
-    
+    border: 2px solid #009dfa;
+    border-radius: 10px;
+    width: 70%;
+    margin-right: 15px;
+    margin-bottom: 5px;
+    background-color: rgb(194, 220, 221);
 }
 
 .message-group {
