@@ -17,7 +17,13 @@ body {
     background-position: top, bottom;
     background-repeat: no-repeat, repeat;
     background-size: cover, cover;
-    background-color: rgb(247, 163, 219);
+    background-color: rgb(247, 163, 219);  
+}
+
+#bar {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around; 
 }
 
 #followees {
@@ -192,13 +198,6 @@ input[type=submit] {
     display: none;
 }
 
-/* #bar {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-around;
-    padding: 10px;
-} */
-
 #follow-container {
     text-align: center;
     display: flex;
@@ -219,7 +218,6 @@ input[type=submit] {
     flex-flow: column nowrap;
     padding: 10px;
     position: absolute;
-    left: 32%;
     border: 2px solid #b1b1b1;
     border-radius: 8px;
     background-color: rgba(243, 44, 17, 0.10); 
