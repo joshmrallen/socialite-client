@@ -288,6 +288,7 @@ const clickHandler = () => {
         else if (click.matches('#suggested-follows')) {
             // make a list of suggest users to show when button is clicked
             // do style.display on those users UL
+            suggestedFriends()
         }
     })
 }
@@ -370,11 +371,33 @@ const reminderHide = () => {
 
 const suggestedFriends = () => {
     const suggestedUl = document.getElementById('suggested-container')
+    const url = 'http://localhost:3000'
     suggestedUl.style.display = 'block'
 
-    Adapter.getUserList()
+    Adapter.getUserList(url)
     .then(users => {
-        for (user of users) {
+        const currentUserId = parseInt(document.getElementById('follow-container').dataset.currentId, 10)
+        let suggested = []
+        
+        for(user of users){
+            if(currentUserId !== user.id){
+                //build an array of follower_id's from follower_follows
+                //see if that array includes currentUserId
+                //if not, push the user instance
+                let follower_follows_ids = []
+                for(follower of user.follower_follows){
+                    follower_follows_ids.push(follower.follower_id)
+                }
+                if(!follower_follows_ids.includes(currentUserId)){
+                    suggested.push(user)
+                }
+                
+            }
+        }
+        // debugger
+        // console.log("Debugger hit!")
+
+        for (user of suggested) {
             const li = document.createElement('li')
             li.className = "suggested-li"
             li.dataset.userId = user.id
@@ -388,6 +411,7 @@ const suggestedFriends = () => {
                 `
             suggestedUl.append(li) 
         }
+        //add to button attributes to make click-listener for follow behavior work
     })
 }
 
