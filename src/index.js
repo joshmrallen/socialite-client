@@ -27,9 +27,13 @@ const findUserIdSignIn = (username) => {
 
 const renderInfo = () => {
     const div = document.getElementById('follow-container')
+    const reminderDiv = document.getElementById('reminder-list')
 
     CURRENT_USER.getInfo()
         .then(info => {
+            reminderDiv.insertAdjacentHTML("beforebegin", `
+                <h1>Welcome back ${info.first_name} ${info.last_name}</h1>
+            `)
             div.dataset.currentId = info.id
             div.dataset.currentFirst = info.first_name
             div.dataset.currentLast = info.last_name
