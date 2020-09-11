@@ -11,9 +11,9 @@ class Adapter {
         .then(resp => resp.json())    
     }
 
-    static getUserList(){
-        return fetch(`${this.baseUrl}/users`) //endpoint for comprehensive list of users on platform
-            .then(resp => resp.json())
+    static getUserList(usersUrl){
+        return fetch(`${usersUrl}/users`) //endpoint for comprehensive list of users on platform
+        .then(resp => resp.json())
     }
 
     addFollow(followerId, followeeId){

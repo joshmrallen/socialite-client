@@ -1,34 +1,33 @@
 document.addEventListener("DOMContentLoaded", ()=>{
     
     submitHandler()
-    const currentId = document.getElementById('bar')
-    CURRENT_USER = new Adapter('http://localhost:3000/', currentId.dataset.currentId)
-    renderInfo()
     clickHandler()
 })
 
-const findUserIdSignIn = () => {
-    const signInForm = document.getElementById('sign-in-form')
-
-    Adapter.getUserList()
+const findUserIdSignIn = (username) => {        
+    Adapter.getUserList("http://localhost:3000") 
     .then(users => {
-        for (user of users) {
-            if (user.username === username) {
-                const userId = document.getElementById('bar')
-                userId.dataset.currentId = user.id
-                debugger
+        for (let i = 0; i < users.length; i++) {
+            if (users[i].username === username) {
+                console.log(users)
+                const bar = document.getElementById('bar')
+                bar.dataset.currentId = users[i].id
+                CURRENT_USER = new Adapter('http://localhost:3000', bar.dataset.currentId)
 
+                const popUp = document.getElementById('popup-sign')
+                popUp.style.display = 'none'
+
+                renderInfo()
             } else {
                 console.log("Wrong username")
             }
         }
     })
-
-
 }
 
 const renderInfo = () => {
     const div = document.getElementById('follow-container')
+
     CURRENT_USER.getInfo()
         .then(info => {
             div.dataset.currentId = info.id
@@ -79,7 +78,6 @@ const createReceived = (message) => {
     receivedDiv.append(messageDiv)
 }
 
-
 const createSent = (message) => {
     const sentDiv = document.getElementById('sent')
     const messageDiv = document.createElement('div')
@@ -90,20 +88,12 @@ const createSent = (message) => {
     messageDiv.dataset.content = message.content
     messageDiv.dataset.username = message.receiver.username
     messageDiv.dataset.date = new Date(Date.parse(message.created_at))
-
-    //new Date(Date.parse(message.receiver.created_at))
-    //new Date(message.receiver.created_at).toISOString().split('T')[0]
-
-
     messageDiv.innerHTML = `
         <h4>To: ${message.receiver.first_name} ${message.receiver.last_name} at: ${messageDiv.dataset.date}</h4>
         <p><strong>Message:</strong> ${message.content}</p>
     `
-
     sentDiv.append(messageDiv)
 }
-
-
 
 const createFollower = (follower) => {
     const ul = document.getElementById('followers')
@@ -121,7 +111,6 @@ const createFollower = (follower) => {
         `
     ul.append(li)
 }
-
 
 const renderFollowee = (followees) => {
     followees.forEach(followee => {
@@ -145,33 +134,6 @@ const createFollowee = (followee) => {
         `
     ul.append(li)
 }
-
-// const createFollowButton = (followees) => {
-//     const followList = document.querySelectorAll('.follow-li')
-//     const followeeIds = []
-//     followees.forEach(followee => followeeIds.push(followee.followee.id))
-
-//     for(let li of followList){
-//         const button = document.createElement('button')
-//         button.className = 'follow-btn'
-
-//         if(followeeIds.includes(parseInt(li.dataset.personId, 10))){
-//             button.innerText = 'Unfollow'
-//             button.dataset.followId = li.dataset.followId
-//             button.dataset.personId = li.dataset.personId
-//             button.dataset.username = li.dataset.username
-//             button.dataset.followee = true
-//             li.append(button)
-//         } else {
-//             button.innerText = 'Follow'
-//             button.dataset.followId = ''
-//             button.dataset.personId = li.dataset.personId
-//             button.dataset.username = li.dataset.username
-//             button.dataset.followee = false
-//             li.append(button)
-//         }
-//     }
-// }
 
 const createFollowButton = () => {
     const followerList = document.getElementById('followers')
@@ -274,7 +236,6 @@ const clickHandler = () => {
             const personId = click.dataset.personId
             const ulFollowers = document.getElementById('followers')
             const ulFollowees = document.getElementById('followees')
-
 // button to add a user to follow list (followee)
             if(click.dataset.followee === 'false'){
                 CURRENT_USER.addFollow(currentId, personId)
@@ -294,13 +255,10 @@ const clickHandler = () => {
                         newLi.innerHTML = click.parentElement.innerHTML
                         ulFollowees.append(newLi)                        
                     })
-
 // button to unfollow an user that follows you
             } else if (click.dataset.followee === 'true'){
                 CURRENT_USER.deleteFollow(followId)
                     .then(resp => console.log(resp))
-
-
                 if (click.parentElement.parentElement.id === "followees") {
                     for (follower of ulFollowers.children) {
                         if (follower.dataset.personId === click.dataset.personId) {
@@ -329,17 +287,15 @@ const clickHandler = () => {
     })
 }
 
-
 // Add error message when username is not found
 const findUserIdAndSubmitMessage = (input, currentId, messageInput) => {
     let receiverId = null
-    Adapter.getUserList()
+    Adapter.getUserList("http://localhost:3000")
         .then(users => {
             for (let i = 0; i < users.length; i++) {
                 if (users[i].username === input) {
                     console.log(users)
                     receiverId = users[i].id
-                    // debugger
                 }
             }
             if (receiverId){
@@ -360,32 +316,27 @@ const findUserIdAndSubmitMessage = (input, currentId, messageInput) => {
 }
 
 const submitHandler = () => {
-    const messageForm = document.getElementById('message-form')
+    const signInForm = document.getElementById('sign-in-form')
+    signInForm.addEventListener("submit", (e) => {
+        e.preventDefault()
+        const username = signInForm.username.value
+        findUserIdSignIn(username)
+    })
 
+    const messageForm = document.getElementById('message-form')
     messageForm.addEventListener("submit", (e) => {
         let click = e.target
         e.preventDefault()
         console.log(click)
-        const userInput = form.user.value
-        const messageInput = form.message.value // getting the value of message from form 
+        const userInput = messageForm.user.value
+        const messageInput = messageForm.message.value  
         const div = document.getElementById('follow-container')
         const currentId = parseInt(div.dataset.currentId, 10)
 
         findUserIdAndSubmitMessage(userInput, currentId, messageInput)
-        form.reset()
+        messageForm.reset()
     })   
-
-    const signInForm = document.getElementById('sign-in-form')
-
-    signInForm.addEventListener("submit", (e) => {
-        let click = e.target
-        const username = signInForm.username.value
-        findUserIdSignIn(username)
-    })
 }
-
-
-
 
 function divShow() {
     const popNewMessage = document.querySelector('#popup')
@@ -406,14 +357,3 @@ function signInShow() {
     const signIn = document.querySelector('#popup-sign')
     signIn.style.display = 'block'
 }
-
-
-
-/*
-
-Following someone who follows you:
-1. button in create follower
-2. if statement: if they are user's followee, button text says 'unfollow', else 'follow'
-
-
-*/

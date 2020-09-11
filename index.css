@@ -123,6 +123,13 @@ form {
     background-color: rgba(255, 229, 229);
 }
 
+input[type=text] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 100%;
+}
+
 input[type=search] {
     width:100%;
     padding:10px;
@@ -132,6 +139,16 @@ input[type=search] {
     border:1px solid #b1b1b1;
     padding-left:7px;
     font-size:16px;
+}
+
+@font-face {
+    font-family: veganFont;
+    src: url(images/VeganStylePersonalUse-5Y58.ttf)
+}
+
+label {
+    font-size:28px;
+    font-family: veganFont;
 }
 
 textarea {
