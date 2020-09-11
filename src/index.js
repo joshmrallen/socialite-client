@@ -283,6 +283,11 @@ const clickHandler = () => {
             const form = document.getElementById('message-form')
             form.user.value = click.dataset.senderUsername
             const messageInput = form.message.value 
+            reminderHide()
+        }
+        else if (click.matches('#suggested-follows')) {
+            // make a list of suggest users to show when button is clicked
+            // do style.display on those users UL
         }
     })
 }
@@ -357,3 +362,39 @@ function signInShow() {
     const signIn = document.querySelector('#popup-sign')
     signIn.style.display = 'block'
 }
+
+const reminderHide = () => {
+    const reminderContainer = document.getElementById('reminder-container')
+    reminderContainer.style.display = 'none'
+}
+
+const suggestedFriends = () => {
+    const suggestedUl = document.getElementById('suggested-container')
+    suggestedUl.style.display = 'block'
+
+    Adapter.getUserList()
+    .then(users => {
+        for (user of users) {
+            const li = document.createElement('li')
+            li.className = "suggested-li"
+            li.dataset.userId = user.id
+            li.dataset.username = user.username
+            li.dataset.first = user.first_name
+            li.dataset.last = user.last_name
+            li.innerHTML = `
+                <h4>Username: @${user.username}</h4>
+                <p>Name: ${user.first_name} ${user.last_name}</p>
+                <button data-user-id=${user.id}>Follow</button>
+                `
+            suggestedUl.append(li) 
+        }
+    })
+}
+
+
+/*
+create follow button to add followee to div (make sure to add all dataset attributes)
+make sure that it updates DOM /JSON
+--needs to append to followee ul
+write README
+*/

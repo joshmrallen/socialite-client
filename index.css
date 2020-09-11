@@ -212,6 +212,19 @@ input[type=submit] {
     background-color: rgba(243, 44, 17, 0.10);
 }
 
+#reminder-container {
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: column nowrap;
+    padding: 10px;
+    position: absolute;
+    left: 32%;
+    border: 2px solid #b1b1b1;
+    border-radius: 8px;
+    background-color: rgba(243, 44, 17, 0.10); 
+}
+
 .follow-li {
     display: flex;
     flex-flow: column nowrap;
