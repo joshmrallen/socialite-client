@@ -293,8 +293,9 @@ const clickHandler = () => {
         else if (click.matches('#suggested-follows')) {
             if (click.dataset.toggle == 'off') {
                 click.dataset.toggle = 'on'
+                const suggestedUl = document.getElementById('suggested-container')
+                suggestedUl.innerHTML = ''
                 suggestedFriends()
-                debugger
                 console.log(click)          
             } else if (click.dataset.toggle == 'on') {
                 const suggestedUl = document.getElementById('suggested-container')
