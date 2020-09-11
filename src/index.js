@@ -279,11 +279,11 @@ const clickHandler = () => {
                 }
             }
         } 
-        // else if (click.matches('#reply-btn')) {
-        //     const form = document.getElementById('message-form')
-        //     form.user.value = click.dataset.senderUsername  // pop up form automatically populates with sender's username
-        //     const messageInput = form.message.value // getting the value of message from form 
-        // }
+        else if (click.matches('#reply-btn')) {
+            const form = document.getElementById('message-form')
+            form.user.value = click.dataset.senderUsername
+            const messageInput = form.message.value 
+        }
     })
 }
 
