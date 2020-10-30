@@ -1,3 +1,9 @@
+![gif](./images/socialite.gif?raw=true)
+
+### GitHub Repositories
+- [Frontend](https://github.com/joshmrallen/socialite-client)
+- [Backend](https://github.com/joshmrallen/socialite-api)
+
 # Short Description
 
 Welcome to Socialite! Socialite is your key to becoming a social butterfly. Users can view their followers as well as people that they follow. Users can also browse a list of suggested users to follow. Users can view, send, and receive messages. 
