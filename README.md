@@ -1,5 +1,7 @@
 ![gif](./images/socialite.gif?raw=true)
 
+[See the live demo here](https://youtu.be/ETSqu29uOGg)
+
 ### GitHub Repositories
 - [Frontend](https://github.com/joshmrallen/socialite-client)
 - [Backend](https://github.com/joshmrallen/socialite-api)
