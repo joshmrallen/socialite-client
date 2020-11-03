@@ -15,6 +15,9 @@ Welcome to Socialite! Socialite is your key to becoming a social butterfly. User
 4) Type in your terminal 'open index.html' to open the app
 5) Have fun!
 
+# Challenges
+We ran into difficulty implementing self joining tables simply because the wording could get very confusing. We documented the experience in a blog post. [Click here to read it on Medium.](https://medium.com/@jmrallen/follow-me-follow-you-self-join-or-how-i-learned-to-respect-twitters-functionality-c6a035d88f03)
+
 # Contributor's Guide
 Make a branch and have fun. Create a pull request for us to review. We are open to any suggestions or changes. 
 
